@@ -2,7 +2,7 @@ require( 'minitest/autorun' )
 require_relative ('../models/animal_2.rb' )
 require( 'date' )
 
-class TestOwner < MiniTest::Test
+class TestAnimal < MiniTest::Test
 
   def setup()
     @lassie = Animal.new({
