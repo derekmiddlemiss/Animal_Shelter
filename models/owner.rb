@@ -15,7 +15,7 @@ class Owner
           RETURNING id;"
     values = [ @name ]
     result = SqlRunner.run( sql, values )
-    @id = result.first()['id'].to_i()
+    @id = result.first()[ 'id' ].to_i()
   end
 
   def update( params )
