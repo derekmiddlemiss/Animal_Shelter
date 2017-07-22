@@ -1,5 +1,5 @@
 require( 'minitest/autorun' )
-require_relative ( '../models/owner.rb' )
+require_relative ( '../models/owner_2.rb' )
 
 class TestOwner < MiniTest::Test
 

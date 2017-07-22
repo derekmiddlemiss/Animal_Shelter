@@ -24,19 +24,27 @@ flipper = Animal.new({
 lassie.save
 flipper.save
 
-p lassie
+# p lassie
+# p flipper
+# puts "-------------------------------------------------------"
+# mr_ed = Animal.new({
+#   'name' => "Mr Ed",
+#   'description' => "Beloved horse of stage and screen, witty stable-bound raconteur.",
+#   'age' => 22,
+#   'species' => "horse",
+#   'breed' => "nag",
+#   'adoptable' => false,
+#   'admission_date' => "2017-05-01",
+#   'shouldnt get through' => "at all"
+# })
+# mr_ed.save()
+# p mr_ed
+
+p Animal.find( flipper.id() )
+flipper.update( { 'name' => "Mr Flipper" })
+p Animal.find( flipper.id() )
+flipper.update( { 'shouldnt_get_through' => "at_all" } )
+p Animal.find( flipper.id() )
 p flipper
-puts "-------------------------------------------------------"
-mr_ed = Animal.new({
-  'name' => "Mr Ed",
-  'description' => "Beloved horse of stage and screen, witty stable-bound raconteur.",
-  'age' => 22,
-  'species' => "horse",
-  'breed' => "nag",
-  'adoptable' => false,
-  'admission_date' => "2017-05-01",
-  'shouldnt get through' => "at all"
-})
-mr_ed.save()
-p mr_ed
+
 

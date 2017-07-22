@@ -1,5 +1,5 @@
 require( 'minitest/autorun' )
-require_relative ('../models/animal.rb' )
+require_relative ('../models/animal_2.rb' )
 require( 'date' )
 
 class TestOwner < MiniTest::Test
@@ -71,7 +71,25 @@ class TestOwner < MiniTest::Test
     assert_equal( expected_next_last, actual_next_last )
   end
 
-  
+  def test_update()
+    @flipper.update( { 'name' => 'Mr Flipper' } )
+    found = Animal.find( @flipper.id() )
+    actual = [ found.id(), found.name(), found.description(),
+              found.age(), found.species(), found.breed(), 
+              found.adoptable(), found.admission_date(),
+              found.adoption_date(), found.owner_id() ]
+    expected = [ @flipper.id(), @flipper.name(), 
+              @flipper.description(), @flipper.age(), 
+              @flipper.species(), @flipper.breed(), 
+              @flipper.adoptable(), @flipper.admission_date(),
+              @flipper.adoption_date(), @flipper.owner_id() ]
+    assert_equal( actual, expected )
+  end
 
+  def test_delete()
+    @lassie.delete()
+    found = Animal.find( @lassie.id() )
+    assert_nil( found )
+  end
 
 end
