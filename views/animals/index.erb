@@ -1,0 +1,20 @@
+<h1>Animals<h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Species</th>
+    <th>Breed</th>
+    <th>Adoptable?</th>
+    <th>Admission Date</th>
+  </tr>
+  <% for animal in @animals do %>
+    <tr>
+      <td><%= animal.name() %></td>
+      <td><%= animal.species() %></td>
+      <td><%= animal.breed() %></td>
+      <td><%= animal.adoptable() %></td>
+      <td><%= animal.admission_date() %></td>
+    </tr>
+  <% end %>
+</table>

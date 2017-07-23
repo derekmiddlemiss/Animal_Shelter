@@ -5,11 +5,8 @@ class Owner
   attr_reader :id, :name
 
   def initialize( params )
-    purged = Owner.purge_keys( params )
-    checked = Owner.check_values( purged )
-    checked.each() do | key, value |
-      instance_variable_set( "@#{key}", value )
-    end
+    @id = params[ 'id' ].to_i() if params[ 'id' ]
+    @name = params[ 'name' ]
   end
 
   def save()
@@ -22,11 +19,7 @@ class Owner
   end
 
   def update( params )
-    purged = Owner.purge_keys( params )
-    checked = Owner.check_values( purged )
-    checked.each() do | key, value |
-      instance_variable_set( "@#{key}", value )
-    end
+    @name = params[ 'name' ] if params[ 'name' ]
     sql = "UPDATE owners 
           SET ( name ) = ( $1 )
           WHERE id = $2;"
@@ -39,21 +32,6 @@ class Owner
           WHERE id = $1;"
     values = [ @id ]
     SqlRunner.run( sql, values )
-  end
-
-  #####################################################################
-
-  def self.purge_keys( params )
-    accepted_keys = [ 'id', 'name' ]
-    params.each do | key, value |
-      params.delete( key ) if !accepted_keys.include?( key )
-    end
-    return params
-  end
-
-  def self.check_values( params )
-    params[ 'id' ] = params[ 'id' ].to_i() if params[ 'id' ]
-    return params
   end
 
   def self.find( search_id )
