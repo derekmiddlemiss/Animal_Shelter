@@ -1,4 +1,4 @@
-require( '../db/sql_runner.rb' )
+require_relative( '../db/sql_runner.rb' )
 
 class Owner
 
@@ -39,6 +39,17 @@ class Owner
           WHERE id = $1;"
     values = [ @id ]
     SqlRunner.run( sql, values )
+  end
+
+  def adopt( animal )
+    animal.adopted_by( self )
+  end
+
+  def adopted_animals()
+    sql = "SELECT * FROM animals 
+          WHERE owner_id = $1"
+    values = [ @id ]
+    return Animal.map_items( sql, values)
   end
 
   #####################################################################

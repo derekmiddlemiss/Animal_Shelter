@@ -1,0 +1,32 @@
+<% require('date') %>
+<h1>New Animal</h1>
+
+<form action="/animals" method="post" label="Create animal form">
+
+  <label for="name">Name:</label><br>
+  <input type="text" name="name" id="name"><br>
+
+  <label for="description">Description:</label><br>
+  <textarea name="description" id="description"></textarea><br>
+
+  <label for="age">Age:</label><br>
+  <input type="text" name="age" id="age"><br>
+
+  <label for="species">Species:</label><br>
+  <input type="text" name="species" id="species"><br>
+
+  <label for="breed">Breed:</label><br>
+  <input type="text" name="breed" id="breed"><br>
+
+  <label for="adoptable">Adoptable?:</label><br>
+  <select name="adoptable" id="adoptable">
+    <option value="true" label="true"></option>
+    <option value="false" label="false"></option>
+  </select><br>
+
+  <label for="admission_date">Admission date (default today):</label><br>
+  <input type="text" name="admission_date" id="admission_date" value="<%= "#{Date.today()}" %>"><br>
+
+  <input type='submit' value='Create'>
+
+</form>

@@ -46,6 +46,19 @@ class Animal
     SqlRunner.run( sql, values )
   end
 
+  def adopted_by( owner )
+    if @adoptable == true
+      params = { 
+        'adoptable' => false,
+        'adoption_date' => Date.today(),
+        'owner_id' => owner.id()
+      }
+      update( params )
+    else
+      raise "#{@name} is not adoptable."
+    end
+  end
+
   #####################################################################
 
   def self.purge_keys( params )
