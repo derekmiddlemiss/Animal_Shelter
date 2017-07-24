@@ -35,6 +35,10 @@ class Owner
   end
 
   def delete()
+    adopted_animals = self.get_adopted_animals()
+    for animal in adopted_animals
+      self.unadopt( animal )
+    end
     sql = "DELETE FROM owners
           WHERE id = $1;"
     values = [ @id ]
@@ -45,7 +49,11 @@ class Owner
     animal.set_adopted_by( self )
   end
 
-  def adopted_animals()
+  def unadopt( animal )
+    animal.unset_adopted_by( self )
+  end
+
+  def get_adopted_animals()
     sql = "SELECT * FROM animals 
           WHERE owner_id = $1 ORDER BY id ASC;"
     values = [ @id ]

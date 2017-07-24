@@ -1,0 +1,15 @@
+<h1>Select animal to adopt for <%= @owner.name() %></h1>
+
+<form action="/owners/<%= @owner.id() %>/adopt" method="post" label="Adopt animal form">
+
+  <label for="select_animal">Select animal:</label><br>
+  <select name="animal_id" id="select_animal">
+    <% for animal in @adoptable_animals %>
+
+      <option value="<%=animal.id()%>" label="<%= animal.name() %> the <%= animal.species() %>"></option>
+    <% end %>
+  </select><br>
+
+  <input type='submit' value='Select'>
+
+</form> 

@@ -1,4 +1,5 @@
 require_relative( '../models/owner.rb' )
+require_relative( '../models/animal.rb' )
 
 get '/owners' do
   @owners = Owner.find_all()
@@ -17,7 +18,7 @@ end
 
 get '/owners/:id' do
   @owner = Owner.find( params[ 'id' ] )
-  @pets_owned = @owner.adopted_animals()
+  @pets_owned = @owner.get_adopted_animals()
   erb( :"owners/show" )
 end
 
@@ -29,5 +30,37 @@ end
 post '/owners/:id' do
   owner = Owner.find( params['id'] )
   owner.update( params )
+  redirect to "/owners"
+end
+
+get '/owners/:id/adopt' do
+  @owner = Owner.find( params[ 'id' ] )
+  @adoptable_animals = Animal.find_all_adoptable()
+  erb( :"owners/adopt" )
+end
+
+post '/owners/:id/adopt' do
+  owner = Owner.find( params[ 'id' ] )
+  animal = Animal.find( params[ 'animal_id' ] )
+  owner.adopt( animal )
+  redirect to "/owners"
+end
+
+get '/owners/:id/unadopt' do
+  @owner = Owner.find( params[ 'id' ] )
+  @adopted_animals = @owner.get_adopted_animals()
+  erb( :"owners/unadopt" )
+end
+
+post '/owners/:id/unadopt' do
+  owner = Owner.find( params[ 'id' ] )
+  animal = Animal.find( params[ 'animal_id' ] )
+  owner.unadopt( animal)
+  redirect to "/owners"
+end
+
+get '/owners/:id/delete' do
+  owner = Owner.find( params[ 'id' ] )
+  owner.delete()
   redirect to "/owners"
 end

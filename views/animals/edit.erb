@@ -1,5 +1,8 @@
 <% require('date') %>
 <h1>Edit Animal</h1>
+<% if @owner !=nil %>
+  <h2>(owned by <%= @owner.name() %>)</h2>
+<% end %>
 
 <form action="/animals/<%= @animal.id() %>" method="post" label="Edit animal form">
 

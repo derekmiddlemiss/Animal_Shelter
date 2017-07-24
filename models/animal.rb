@@ -59,6 +59,19 @@ class Animal
     end
   end
 
+  def unset_adopted_by( owner )
+    if @adoption_date != nil
+      params = {
+        'adoptable' => true,
+        'adoption_date' => nil,
+        'owner_id' => nil
+      }
+      update( params )
+    else
+      raise "#{@name} is not currently adopted."
+    end
+  end
+
   def get_owner()
     sql = "SELECT * FROM owners
           WHERE id = $1;"
@@ -102,7 +115,7 @@ class Animal
 
   def self.find_all_adoptable()
     sql = "SELECT * FROM animals
-          WHERE adoptable = t ORDER BY id ASC;"
+          WHERE adoptable = 't' ORDER BY id ASC;"
     animals = self.map_items( sql )
     return animals
   end
