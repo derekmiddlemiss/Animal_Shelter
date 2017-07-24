@@ -1,0 +1,33 @@
+<% require('date') %>
+<h1>Edit Animal</h1>
+
+<form action="/animals/<%= @animal.id() %>" method="post" label="Edit animal form">
+
+  <label for="name">Name:</label><br>
+  <input type="text" name="name" id="name" value="<%= @animal.name() %>"><br>
+
+  <label for="description">Description:</label><br>
+  <textarea name="description" id="description"><%= @animal.description() %></textarea><br>
+
+  <label for="age">Age:</label><br>
+  <input type="text" name="age" id="age" value="<%= @animal.age() %>"><br>
+
+  <label for="species">Species:</label><br>
+  <input type="text" name="species" id="species" value="<%= @animal.species() %>"><br>
+
+  <label for="breed">Breed:</label><br>
+  <input type="text" name="breed" id="breed" value="<%= @animal.breed() %>"><br>
+
+  
+  <label for="adoptable">Adoptable?:</label><br>
+  <select name="adoptable" id="adoptable" value="<%= @animal.adoptable() %>" <%= "disabled" if @animal.adoption_date() %> >
+    <option value="true" label="true" <%= "selected" if @animal.adoptable() == true %>></option>
+    <option value="false" label="false" <%= "selected" if @animal.adoptable() == false %>></option>
+  </select><br>
+
+  <label for="admission_date">Admission date:</label><br>
+  <input type="text" name="admission_date" id="admission_date" value="<%= @animal.admission_date() %>"><br>
+
+  <input type='submit' value='Update'>
+
+</form>

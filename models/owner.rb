@@ -42,12 +42,12 @@ class Owner
   end
 
   def adopt( animal )
-    animal.adopted_by( self )
+    animal.set_adopted_by( self )
   end
 
   def adopted_animals()
     sql = "SELECT * FROM animals 
-          WHERE owner_id = $1"
+          WHERE owner_id = $1 ORDER BY id ASC;"
     values = [ @id ]
     return Animal.map_items( sql, values)
   end
@@ -75,7 +75,7 @@ class Owner
   end
 
   def self.find_all()
-    sql = "SELECT * FROM owners;"
+    sql = "SELECT * FROM owners ORDER BY id ASC;"
     owners = self.map_items( sql )
     return owners
   end

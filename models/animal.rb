@@ -46,7 +46,7 @@ class Animal
     SqlRunner.run( sql, values )
   end
 
-  def adopted_by( owner )
+  def set_adopted_by( owner )
     if @adoptable == true
       params = { 
         'adoptable' => false,
@@ -57,6 +57,14 @@ class Animal
     else
       raise "#{@name} is not adoptable."
     end
+  end
+
+  def get_owner()
+    sql = "SELECT * FROM owners
+          WHERE id = $1;"
+    values = [ @owner_id ]
+    owner = Owner.map_items( sql, values ).first()
+    return owner
   end
 
   #####################################################################
@@ -72,7 +80,7 @@ class Animal
   def self.check_values( params )
     params[ 'id' ] = params[ 'id' ].to_i() if params[ 'id' ]
     params[ 'age' ] = params[ 'age' ].to_i() if params[ 'age' ]
-    params[ 'adoptable' ] = BooleanHandler.convert( params[ 'adoptable' ] )
+    params[ 'adoptable' ] = BooleanHandler.convert( params[ 'adoptable' ] ) if params[ 'adoptable' ]
     params[ 'admission_date' ] = Date.parse( params[ 'admission_date' ] ) if ( params[ 'admission_date' ].class() != Date ) && ( params[ 'admission_date' ].class() != NilClass )
     params[ 'adoption_date' ] = Date.parse( params[ 'adoption_date' ] ) if ( params[ 'adoption_date' ].class() != Date ) && ( params[ 'adoption_date' ].class() != NilClass )
     params[ 'owner_id' ] = params[ 'owner_id' ].to_i() if params[ 'owner_id' ]
@@ -87,7 +95,14 @@ class Animal
   end
   
   def self.find_all()
-    sql = "SELECT * FROM animals"
+    sql = "SELECT * FROM animals ORDER BY id ASC;"
+    animals = self.map_items( sql )
+    return animals
+  end
+
+  def self.find_all_adoptable()
+    sql = "SELECT * FROM animals
+          WHERE adoptable = t ORDER BY id ASC;"
     animals = self.map_items( sql )
     return animals
   end

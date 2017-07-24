@@ -1,0 +1,10 @@
+<h1>Edit Owner</h1>
+
+<form action="/owners/<%= @owner.id() %>" method="post" label="Edit owner form">
+
+  <label for="name">Name:</label><br>
+  <input type="text" name="name" id="name" value="<%= @owner.name() %>"><br>
+
+  <input type='submit' value='Update'>
+
+</form>

@@ -3,10 +3,15 @@
 <table>
   <tr>
     <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   <% for owner in @owners do %>
     <tr>
       <td><%= owner.name() %></td>
+      <td><a href="/owners/<%= owner.id() %>">Details</a>  
+      <td><a href="/owners/<%= owner.id() %>/edit">Edit</a>  
     </tr>
   <% end %>
 </table>

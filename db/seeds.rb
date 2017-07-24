@@ -1,5 +1,6 @@
 require_relative( '../models/animal.rb' )
 require_relative( '../models/owner.rb' )
+require( 'pry' )
 
 lassie = Animal.new({
   'name' => "Lassie",
@@ -28,3 +29,7 @@ dr_doolittle = Owner.new( { 'name' => 'Dr Doolittle' })
 
 long_john_silver.save()
 dr_doolittle.save()
+
+dr_doolittle.adopt( lassie )
+binding.pry
+nil
