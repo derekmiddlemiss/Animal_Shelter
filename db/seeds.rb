@@ -8,6 +8,7 @@ lassie = Animal.new({
   'age' => 10,
   'species' => "Dog",
   'breed' => "Collie",
+  'picture_url' => 'https://vignette2.wikia.nocookie.net/dreamworks/images/3/34/910171000.jpg/revision/latest?cb=20150806013011',
   'adoptable' => true,
   'admission_date' => "#{Date.today()}"
 })
@@ -17,6 +18,7 @@ flipper = Animal.new({
   'age' => 15,
   'species' => "Dolphin",
   'breed' => "Bottlenose",
+  'picture_url' => 'https://s-media-cache-ak0.pinimg.com/736x/f6/a9/3c/f6a93cd49ed72a026159c6c2e2a3c264--flipper-killer-whales.jpg',
   'adoptable' => false,
   'admission_date' => "2017-05-01"
 })
@@ -26,6 +28,7 @@ skippy = Animal.new({
   'age' => 21,
   'species' => "Kangaroo",
   'breed' => "Bush",
+  'picture_url' => 'https://www.classicaustraliantv.com/Skippy/SK15.jpg',
   'adoptable' => true,
   'admission_date' => "2017-02-14"
 })
@@ -35,6 +38,7 @@ bagpuss = Animal.new({
   'age' => 34,
   'species' => "Cat",
   'breed' => "Sackpuss",
+  'picture_url' => 'http://www.smallfilms.co.uk/bagpuss/bagpuss.jpg',
   'adoptable' => true,
   'admission_date' => "2015-06-23"
 })
@@ -44,6 +48,7 @@ colin = Animal.new({
   'age' => 6,
   'species' => "Dog",
   'breed' => "Miniature Schnauser",
+  'picture_url' => 'https://vignette4.wikia.nocookie.net/spaced/images/c/c6/Colin.jpg/revision/latest?cb=20100221014518',
   'adoptable' => true,
   'admission_date' => "2016-08-12"
 })

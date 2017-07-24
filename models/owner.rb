@@ -2,7 +2,7 @@ require_relative( '../db/sql_runner.rb' )
 
 class Owner
 
-  attr_reader :id, :name
+  attr_reader :id, :name, :q_and_a_string
 
   def initialize( params )
     purged = Owner.purge_keys( params )
@@ -14,9 +14,9 @@ class Owner
 
   def save()
     sql = "INSERT INTO owners 
-          ( name ) VALUES ( $1 )
+          ( name, q_and_a_string ) VALUES ( $1, $2 )
           RETURNING id;"
-    values = [ @name ]
+    values = [ @name, @q_and_a_string ]
     result = SqlRunner.run( sql, values )
     @id = result.first()[ 'id' ].to_i()
   end
@@ -28,9 +28,9 @@ class Owner
       instance_variable_set( "@#{key}", value )
     end
     sql = "UPDATE owners 
-          SET ( name ) = ( $1 )
-          WHERE id = $2;"
-    values = [ @name, @id ]
+          SET ( name, q_and_a_string ) = ( $1, $2 )
+          WHERE id = $3;"
+    values = [ @name, @q_and_a_string, @id ]
     SqlRunner.run( sql, values )
   end
 
@@ -63,7 +63,7 @@ class Owner
   #####################################################################
 
   def self.purge_keys( params )
-    accepted_keys = [ 'id', 'name' ]
+    accepted_keys = [ 'id', 'name', 'q_and_a_string' ]
     params.each do | key, value |
       params.delete( key ) if !accepted_keys.include?( key )
     end
