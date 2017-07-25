@@ -8,7 +8,6 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
   <% for owner in @owners do %>
     <tr>
@@ -16,7 +15,6 @@
       <td><a href="/owners/<%= owner.id() %>">Details</a></td>  
       <td><a href="/owners/<%= owner.id() %>/edit">Edit</a></td>
       <td><a href="owners/<%= owner.id() %>/adopt">Adopt</a></td>
-      <td><a href="owners/<%= owner.id() %>/unadopt">Unadopt</a></td>
       <td><a href="owners/<%= owner.id() %>/delete">Delete</a></td>
       <td><a href="owners/<%= owner.id() %>/match">Match [ using OKCatpid<sup>(TM)</sup> ]!</a></td>
     </tr>

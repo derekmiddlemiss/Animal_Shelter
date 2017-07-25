@@ -48,17 +48,11 @@ post '/owners/:id/adopt' do
   redirect to "/owners"
 end
 
-get '/owners/:id/unadopt' do
-  @owner = Owner.find( params[ 'id' ] )
-  @adopted_animals = @owner.get_adopted_animals()
-  erb( :"owners/unadopt" )
-end
-
 post '/owners/:id/unadopt' do
   owner = Owner.find( params[ 'id' ] )
   animal = Animal.find( params[ 'animal_id' ] )
   owner.unadopt( animal)
-  redirect to "/owners"
+  redirect to "/owners/#{params[ 'id' ]}"
 end
 
 get '/owners/:id/delete' do

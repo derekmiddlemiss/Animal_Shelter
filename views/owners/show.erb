@@ -1,22 +1,32 @@
 <h2><%= @owner.name() %></h2>
 
-<h3>Pets Owned</h3> 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Age</th>
-    <th>Species</th>
-    <th>Breed</th>
-  </tr>
-<% for animal in @pets_owned %>
-  <tr>
-    <td><a href="/animals/<%= animal.id() %>"><%= animal.name() %></a></td>
-    <td><%= animal.age() %></td>
-    <td><%= animal.species() %></td>
-    <td><%= animal.breed() %></td>
-  </tr>
+<% if @pets_owned.count() > 0 %>
+
+  <h3>Pets Owned</h3> 
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Species</th>
+      <th>Breed</th>
+      <th></th>
+    </tr>
+  <% for animal in @pets_owned %>
+    <tr>
+      <td><a href="/animals/<%= animal.id() %>"><%= animal.name() %></a></td>
+      <td><%= animal.age() %></td>
+      <td><%= animal.species() %></td>
+      <td><%= animal.breed() %></td>
+      <td><form action="/owners/<%= @owner.id() %>/unadopt" method="post"><button name="animal_id" value="<%= animal.id() %>">Unadopt</button></form></td>
+    </tr>
+  <% end %>
+  </table>
+
+<% else %>
+
+  <h3>No Pets Owned</h3>
+
 <% end %>
-</table>
 
 <h3> Questions and Answers... </h3>
 <p>
