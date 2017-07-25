@@ -368,7 +368,7 @@ dr_doolittle_q4 = Answer.new( {
 dr_doolittle_q5 = Answer.new( {
   'question_id' => 5,
   'owner_id' => dr_doolittle.id(),
-  'own_answer' => 'moderate',
+  'own_answer' => 'not much',
   'desired_answer' => 'moderate',
   'importance' => 'very important'
   } )

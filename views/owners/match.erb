@@ -2,6 +2,6 @@
 
 <% for result in @results %>
   <img src="<%= result[0].picture_url() %>" style="width:100px;">
-  <p><a href="/animals/<%= result[0].id() %>"><%= result[0].name() %></a> the <%= result[0].species() %> : <b><%=result[1].round(3)%></b> index match</p>
+  <p><a href="/animals/<%= result[0].id() %>"><%= result[0].name() %></a> the <%= result[0].species() %> : <b><%=result[1].round(1)%></b> % match</p>
   <hr>
 <% end %>

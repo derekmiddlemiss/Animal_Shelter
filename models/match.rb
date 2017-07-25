@@ -55,7 +55,7 @@ class Match
       owner_score = ( 100.0 * owner_score.to_f() ) / owner_total_possible.to_f()
       animal_score = ( 100.0 * animal_score.to_f() ) / animal_total_possible.to_f()
 
-      final_match_score = ( owner_score * animal_score ) ** ( 1.0 / mutual_answers.to_f() )
+      final_match_score = ( owner_score * animal_score ) ** 0.5
 
       this_animal_result << final_match_score
 
