@@ -1,15 +1,23 @@
 <h2>Select animal to adopt for <%= @owner.name() %></h2>
 
-<form action="/owners/<%= @owner.id() %>/adopt" method="post" label="Adopt animal form">
+<% if @adoptable_animals.count() != 0 %>
 
-  <label for="select_animal">Select animal:</label><br>
-  <select name="animal_id" id="select_animal">
-    <% for animal in @adoptable_animals %>
+  <form action="/owners/<%= @owner.id() %>/adopt" method="post" label="Adopt animal form">
 
-      <option value="<%=animal.id()%>" label="<%= animal.name() %> the <%= animal.species() %>"></option>
-    <% end %>
-  </select><br>
+    <label for="select_animal">Select animal:</label><br>
+    <select name="animal_id" id="select_animal">
+      <% for animal in @adoptable_animals %>
 
-  <input type='submit' value='Select'>
+        <option value="<%=animal.id()%>" label="<%= animal.name() %> the <%= animal.species() %>"></option>
+      <% end %>
+    </select><br>
 
-</form> 
+    <input type='submit' value='Select'>
+
+  </form>
+
+<% else %>
+
+  <h3>Alas, no animals to adopt</h3>
+
+<% end %> 

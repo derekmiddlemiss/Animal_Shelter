@@ -2,6 +2,8 @@ require_relative( '../db/sql_runner.rb' )
 
 class Owner
 
+  @@accepted_keys = [ 'id', 'name', 'q_and_a_string' ]
+
   attr_reader :id, :name, :q_and_a_string
 
   def initialize( params )
@@ -63,9 +65,8 @@ class Owner
   #####################################################################
 
   def self.purge_keys( params )
-    accepted_keys = [ 'id', 'name', 'q_and_a_string' ]
     params.each do | key, value |
-      params.delete( key ) if !accepted_keys.include?( key )
+      params.delete( key ) if !@@accepted_keys.include?( key )
     end
     return params
   end

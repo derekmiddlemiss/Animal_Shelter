@@ -4,6 +4,8 @@ require( 'date' )
 
 class Animal
 
+  @@accepted_keys = [ 'id', 'name', 'description', 'age', 'species', 'breed', 'picture_url', 'q_and_a_string', 'adoptable', 'admission_date', 'adoption_date', 'owner_id' ]
+
   attr_reader :id, :name, :description, :age, :species, :breed, :picture_url, :q_and_a_string,
               :adoptable, :admission_date, :adoption_date, :owner_id
 
@@ -83,9 +85,8 @@ class Animal
   #####################################################################
 
   def self.purge_keys( params )
-    accepted_keys = [ 'id', 'name', 'description', 'age', 'species', 'breed', 'picture_url', 'q_and_a_string', 'adoptable', 'admission_date', 'adoption_date', 'owner_id' ]
     params.each do | key, value |
-      params.delete( key ) if !accepted_keys.include?( key )
+      params.delete( key ) if !@@accepted_keys.include?( key )
     end
     return params
   end
