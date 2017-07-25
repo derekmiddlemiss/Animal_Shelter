@@ -4,9 +4,9 @@ require( 'date' )
 
 class Animal
 
-  @@accepted_keys = [ 'id', 'name', 'description', 'age', 'species', 'breed', 'picture_url', 'q_and_a_string', 'adoptable', 'admission_date', 'adoption_date', 'owner_id' ]
+  @@accepted_keys = [ 'id', 'name', 'description', 'age', 'species', 'breed', 'picture_url', 'adoptable', 'admission_date', 'adoption_date', 'owner_id' ]
 
-  attr_reader :id, :name, :description, :age, :species, :breed, :picture_url, :q_and_a_string,
+  attr_reader :id, :name, :description, :age, :species, :breed, :picture_url,
               :adoptable, :admission_date, :adoption_date, :owner_id
 
   def initialize( params )
@@ -19,10 +19,10 @@ class Animal
 
   def save()
     sql = "INSERT INTO animals
-          ( name, description, age, species, breed, picture_url, q_and_a_string, adoptable, admission_date)
-          VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9 ) 
+          ( name, description, age, species, breed, picture_url, adoptable, admission_date)
+          VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 ) 
           RETURNING id;"
-    values = [ @name, @description, @age, @species, @breed, @picture_url, @q_and_a_string, @adoptable, @admission_date ]
+    values = [ @name, @description, @age, @species, @breed, @picture_url, @adoptable, @admission_date ]
     result = SqlRunner.run( sql, values )
     @id = result.first()[ 'id' ].to_i()
   end
@@ -34,10 +34,10 @@ class Animal
       instance_variable_set( "@#{key}", value )
     end
     sql = "UPDATE animals SET
-          ( name, description, age, species, breed, picture_url, q_and_a_string, adoptable, admission_date, adoption_date, owner_id) =
-          ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11 )
-          WHERE id = $12;"
-    values = [ @name, @description, @age, @species, @breed, @picture_url, @q_and_a_string, @adoptable, @admission_date, @adoption_date, @owner_id, @id ]
+          ( name, description, age, species, breed, picture_url, adoptable, admission_date, adoption_date, owner_id) =
+          ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10 )
+          WHERE id = $11;"
+    values = [ @name, @description, @age, @species, @breed, @picture_url, @adoptable, @admission_date, @adoption_date, @owner_id, @id ]
     SqlRunner.run( sql, values )
   end
 
@@ -80,6 +80,14 @@ class Animal
     values = [ @owner_id ]
     owner = Owner.map_items( sql, values ).first()
     return owner
+  end
+
+  def get_answers()
+    sql = "SELECT * FROM answers
+          WHERE animal_id = $1 ORDER BY id ASC;"
+    values = [ @id ]
+    answers = Answer.map_items( sql, values )
+    return answers
   end
 
   #####################################################################

@@ -1,0 +1,7 @@
+<h2>Matches for <%= @owner.name() %> using OKCatpid(TM)</h2>
+
+<% for result in @results %>
+<img src="<%= result[0].picture_url() %>" style="width:100px;"><br>
+<p><%= result[0].name() %> the <%= result[0].species() %> : <%=result[1]%> index match</p>
+<hr>
+<% end %>

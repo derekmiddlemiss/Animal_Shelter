@@ -2,9 +2,9 @@ require_relative( '../db/sql_runner.rb' )
 
 class Owner
 
-  @@accepted_keys = [ 'id', 'name', 'q_and_a_string' ]
+  @@accepted_keys = [ 'id', 'name' ]
 
-  attr_reader :id, :name, :q_and_a_string
+  attr_reader :id, :name
 
   def initialize( params )
     purged = Owner.purge_keys( params )
@@ -16,9 +16,9 @@ class Owner
 
   def save()
     sql = "INSERT INTO owners 
-          ( name, q_and_a_string ) VALUES ( $1, $2 )
+          ( name ) VALUES ( $1 )
           RETURNING id;"
-    values = [ @name, @q_and_a_string ]
+    values = [ @name ]
     result = SqlRunner.run( sql, values )
     @id = result.first()[ 'id' ].to_i()
   end
@@ -30,9 +30,9 @@ class Owner
       instance_variable_set( "@#{key}", value )
     end
     sql = "UPDATE owners 
-          SET ( name, q_and_a_string ) = ( $1, $2 )
-          WHERE id = $3;"
-    values = [ @name, @q_and_a_string, @id ]
+          SET ( name ) = ( $1 )
+          WHERE id = $2;"
+    values = [ @name, @id ]
     SqlRunner.run( sql, values )
   end
 
@@ -60,6 +60,14 @@ class Owner
           WHERE owner_id = $1 ORDER BY id ASC;"
     values = [ @id ]
     return Animal.map_items( sql, values)
+  end
+
+  def get_answers()
+    sql = "SELECT * FROM answers
+          WHERE owner_id = $1 ORDER BY id ASC;"
+    values = [ @id ]
+    answers = Answer.map_items( sql, values )
+    return answers
   end
 
   #####################################################################

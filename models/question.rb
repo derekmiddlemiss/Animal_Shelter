@@ -1,4 +1,8 @@
+require_relative( '../db/sql_runner.rb' )
+
 class Question
+
+  @@accepted_keys = [ 'id', 'text' ]
 
   attr_reader :id, :text
 
@@ -23,15 +27,15 @@ class Question
 
 
   def self.purge_keys( params )
-    accepted_keys = [ 'id', 'text' ]
     params.each do | key, value |
-      params.delete( key ) if !accepted_keys.include?( key )
+      params.delete( key ) if !@@accepted_keys.include?( key )
     end
     return params
   end
 
   def self.check_values( params )
     params[ 'id' ] = params[ 'id' ].to_i() if params[ 'id' ]
+    return params
   end
 
   def self.find( search_id )
@@ -52,5 +56,7 @@ class Question
     questions = results.map { |question| Question.new( question ) }
     return questions
   end
+
+
 
 end

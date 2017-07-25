@@ -1,5 +1,6 @@
 require_relative( '../models/owner.rb' )
 require_relative( '../models/animal.rb' )
+require_relative( '../models/match.rb' )
 
 get '/owners' do
   @owners = Owner.find_all()
@@ -63,4 +64,11 @@ get '/owners/:id/delete' do
   owner = Owner.find( params[ 'id' ] )
   owner.delete()
   redirect to "/owners"
+end
+
+get '/owners/:id/match' do
+  @owner = Owner.find( params[ 'id' ] )
+  @adoptable_animals = Animal.find_all_adoptable()
+  @results = Match.run_match( @owner, @adoptable_animals )
+  erb( :"owners/match" )
 end
