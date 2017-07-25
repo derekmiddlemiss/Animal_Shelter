@@ -2,14 +2,25 @@
 
 <img src="<%= @animal.picture_url() %>" style="width:200px;"><br>
 
-<p>Name: <%= @animal.name() %></p>
-<p>Age: <%= @animal.age() %></p>
-<p>Species: <%= @animal.species() %></p>
-<p>Breed: <%= @animal.breed() %></p>
-<p>Description: <%= @animal.description() %></p>
-<p>Adoptable: <%= @animal.adoptable() %></p>
-<p>Admission date: <%= @animal.admission_date() %></p>
+<p>
+<b>Name:</b> <%= @animal.name() %><br>
+<b>Age:</b> <%= @animal.age() %><br>
+<b>Species:</b> <%= @animal.species() %><br>
+<b>Breed:</b> <%= @animal.breed() %><br>
+<b>Description:</b> <%= @animal.description() %><br>
+<b>Adoptable:</b> <%= @animal.adoptable() %><br>
+<b>Admission date:</b> <%= @animal.admission_date() %><br>
 <% if @owner != nil %>
-  <p>Adoption date: <%= @animal.adoption_date() %></p>
-  <p>Owner: <a href="/owners/<%= @owner.id() %>"><%= @owner.name() %></a></p>
+  <b>Adoption date:</b> <%= @animal.adoption_date() %><br>
+  <b>Owner:</b> <a href="/owners/<%= @owner.id() %>"><%= @owner.name() %></a>
 <% end %>
+</p>
+
+<h3> Questions and Answers... </h3>
+<p>
+<% for answer in @answers do %>
+  <b><%= answer.get_question().text() %></b><br>
+  <b> My answer:- </b> <%= answer.own_answer() %> &nbsp;&nbsp;&nbsp; <b> Desired answer:- </b> <%= answer.desired_answer() %> &nbsp;&nbsp;&nbsp; <b>Importance:- </b> <%= answer.importance() %><br>
+  <hr>
+<% end %>
+</p>

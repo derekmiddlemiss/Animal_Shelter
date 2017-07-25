@@ -17,3 +17,12 @@
   </tr>
 <% end %>
 </table>
+
+<h3> Questions and Answers... </h3>
+<p>
+<% for answer in @answers do %>
+  <b><%= answer.get_question().text() %></b><br>
+  <b> My answer:- </b> <%= answer.own_answer() %> &nbsp;&nbsp;&nbsp; <b> Desired answer:- </b> <%= answer.desired_answer() %> &nbsp;&nbsp;&nbsp; <b>Importance:- </b> <%= answer.importance() %><br>
+  <hr>
+<% end %>
+</p>

@@ -1,5 +1,7 @@
 require_relative( '../models/animal.rb' )
 require_relative( '../models/owner.rb' )
+require_relative( '../models/question.rb' )
+require_relative( '../models/answer.rb' )
 require( 'pry' )
 
 get '/animals' do
@@ -20,6 +22,7 @@ end
 get '/animals/:id' do
   @animal = Animal.find( params['id'] )
   @owner = @animal.get_owner()
+  @answers = @animal.get_answers()
   erb( :"animals/show" )
 end
 

@@ -1,4 +1,5 @@
 require_relative( '../db/sql_runner.rb' )
+require_relative( './question.rb' )
 
 class Answer
 
@@ -36,6 +37,14 @@ class Answer
           WHERE id = $7;"
     values = [ @question_id, @owner_id, @animal_id, @own_answer, @desired_answer, @importance ]
     SqlRunner( sql, values )
+  end
+
+  def get_question()
+    sql = "SELECT * FROM questions
+          WHERE id = $1;"
+    values = [ @question_id ]
+    question = Question.map_items( sql, values ).first()
+    return question
   end
 
   #####################################################################

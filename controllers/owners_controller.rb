@@ -20,6 +20,7 @@ end
 get '/owners/:id' do
   @owner = Owner.find( params[ 'id' ] )
   @pets_owned = @owner.get_adopted_animals()
+  @answers = @owner.get_answers()
   erb( :"owners/show" )
 end
 
