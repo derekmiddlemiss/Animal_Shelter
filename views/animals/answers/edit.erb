@@ -1,0 +1,37 @@
+<h2>Edit <%=@animal.name()%>'s Answers</h2>
+
+<form action="/animals/<%= @animal.id() %>/answers" method="post" label="Edit animal answers form">
+
+<% for question in @questions %>
+
+  <p><b><%= question.text() %></b></p>
+  <table cellspacing="20">
+    <tr>
+      <th>Own answer</th>
+      <th>Desired answer</th>
+      <th>Importance</th>
+    </tr>
+    <tr>
+      <td>
+          <input type="radio" name="<%=question.id()%>|own_answer" value="not much" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).own_answer() == "not much" %>> Not Much<br>
+          <input type="radio" name="<%=question.id()%>|own_answer" value="moderate" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).own_answer() == "moderate" %>>Moderate<br>
+          <input type="radio" name="<%=question.id()%>|own_answer" value="very much" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).own_answer() == "very much" %>>Very Much<br>
+      </td>
+      <td>
+          <input type="radio" name="<%=question.id()%>|desired_answer" value="not much" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).desired_answer() == "not much" %>>Not Much<br>
+          <input type="radio" name="<%=question.id()%>|desired_answer" value="moderate" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).desired_answer() == "moderate" %>>Moderate<br>
+          <input type="radio" name="<%=question.id()%>|desired_answer" value="very much" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).desired_answer() == "very much" %>>Very Much<br>
+      </td>
+      <td>
+          <input type="radio" name="<%=question.id()%>|importance" value="insignificant" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).importance() == "insignificant" %>>Insignificant<br>
+          <input type="radio" name="<%=question.id()%>|importance" value="moderate" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).importance() == "moderate" %>>Moderate<br>
+          <input type="radio" name="<%=question.id()%>|importance" value="very important" <%= "checked" if @animal.get_answer( question.id() ) != nil && @animal.get_answer( question.id() ).importance() == "very important" %>>Very Important<br>
+      </td>
+    </tr>
+  </table>
+
+<% end %>
+
+<input type='submit' value='Update'>
+
+</form>

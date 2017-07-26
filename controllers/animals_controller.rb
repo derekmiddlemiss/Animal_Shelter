@@ -43,3 +43,23 @@ get '/animals/:id/delete' do
   animal.delete()
   redirect to "/animals"
 end
+
+get '/animals/:id/answers/edit' do
+  @animal = Animal.find( params['id'] )
+  @questions = Question.find_all()
+  erb( :"animals/answers/edit" )
+end
+
+post '/animals/:id/answers' do
+  animal = Animal.find( params['id'] )
+  answers_hash = Answer.hash_parser( params, "animal" )
+  answers_hash.each do | key, hash |
+    if animal.get_answer( key ) != nil
+      answer = animal.get_answer( key )
+      answer.update( hash )
+    else
+      answer.save()
+    end
+  end
+  redirect to "/animals" 
+end

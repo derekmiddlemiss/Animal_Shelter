@@ -70,6 +70,15 @@ class Owner
     return answers
   end
 
+  def get_answer( question_id )
+    sql = "SELECT * FROM answers
+          WHERE owner_id = $1 
+          AND question_id = $2;"
+    values = [ @id, question_id ]
+    answer = Answer.map_items( sql, values ).first()
+    return answer
+  end
+
   #####################################################################
 
   def self.purge_keys( params )

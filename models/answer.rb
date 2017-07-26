@@ -35,8 +35,8 @@ class Answer
           ( question_id, owner_id, animal_id, own_answer, desired_answer, importance) = 
           ( $1, $2, $3, $4, $5, $6 ) 
           WHERE id = $7;"
-    values = [ @question_id, @owner_id, @animal_id, @own_answer, @desired_answer, @importance ]
-    SqlRunner( sql, values )
+    values = [ @question_id, @owner_id, @animal_id, @own_answer, @desired_answer, @importance, @id ]
+    SqlRunner.run( sql, values )
   end
 
   def get_question()
@@ -77,5 +77,32 @@ class Answer
     return answers
   end
 
+  def self.hash_parser( params, thing_string )
+
+    thing_id = params['id']
+    params.delete("captures")
+    params.delete("id")
+    master_hash = Hash.new{|hash, key| hash[key] = Hash.new}
+
+    keys = params.keys()
+    values = params.values()
+    values_counter = 0
+
+    for key in keys do
+
+      keysplit = key.split("|")
+      master_hash[ keysplit[0] ].store( keysplit[1],values[ values_counter ] )
+      values_counter += 1
+
+    end
+
+    master_hash.each do |key, value|
+      value.store( 'question_id', key )
+      value.store( "#{thing_string}_id", thing_id )
+    end
+
+    return master_hash
+
+  end
 
 end

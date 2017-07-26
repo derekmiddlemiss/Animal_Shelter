@@ -33,7 +33,7 @@ class Match
 
         for animal_answer in animal_answers do
 
-          if owner_answer.question_id() == animal_answer.question_id()
+          if ( owner_answer.question_id() == animal_answer.question_id() ) && owner_answer.importance() && animal_answer.importance()
           
             mutual_answers += 1
 
@@ -52,10 +52,14 @@ class Match
 
       end # owner_answer loop
 
-      owner_score = ( 100.0 * owner_score.to_f() ) / owner_total_possible.to_f()
-      animal_score = ( 100.0 * animal_score.to_f() ) / animal_total_possible.to_f()
+      if mutual_answers > 0
+        owner_score = ( 100.0 * owner_score.to_f() ) / owner_total_possible.to_f()
+        animal_score = ( 100.0 * animal_score.to_f() ) / animal_total_possible.to_f()
 
-      final_match_score = ( owner_score * animal_score ) ** 0.5
+        final_match_score = ( owner_score * animal_score ) ** 0.5
+      else
+        final_match_score = 0
+      end
 
       this_animal_result << final_match_score
 
