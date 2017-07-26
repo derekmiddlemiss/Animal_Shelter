@@ -53,11 +53,12 @@ end
 post '/animals/:id/answers' do
   animal = Animal.find( params['id'] )
   answers_hash = Answer.hash_parser( params, "animal" )
-  answers_hash.each do | key, hash |
-    if animal.get_answer( key ) != nil
-      answer = animal.get_answer( key )
+  answers_hash.each do | question_id, hash |
+    if animal.get_answer( question_id ) != nil
+      answer = animal.get_answer( question_id )
       answer.update( hash )
     else
+      answer = Answer.new( hash )
       answer.save()
     end
   end

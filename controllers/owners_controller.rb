@@ -67,3 +67,24 @@ get '/owners/:id/match' do
   @results = Match.run_match( @owner, @adoptable_animals )
   erb( :"owners/match" )
 end
+
+get '/owners/:id/answers/edit' do
+  @owner = Owner.find( params['id'] )
+  @questions = Question.find_all()
+  erb( :"owners/answers/edit" )
+end
+
+post '/owners/:id/answers' do
+  owner = Owner.find( params['id'] )
+  answers_hash = Answer.hash_parser( params, "owner" )
+  answers_hash.each do | question_id, hash |
+    if owner.get_answer( question_id ) != nil
+      answer = owner.get_answer( question_id )
+      answer.update( hash )
+    else
+      answer = Answer.new( hash )
+      answer.save()
+    end
+  end
+  redirect to "/owners" 
+end

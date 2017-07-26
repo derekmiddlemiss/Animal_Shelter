@@ -29,6 +29,7 @@
 <% end %>
 
 <h3> Questions and Answers... </h3>
+<form action="/owners/<%= @owner.id() %>/answers/edit" method="get"><input type='submit' value='Update Answers'></form>
 <p>
 <% for answer in @answers do %>
   <b><%= answer.get_question().text() %></b><br>
